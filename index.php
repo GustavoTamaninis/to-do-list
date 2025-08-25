@@ -25,7 +25,7 @@
 <body>
     <div id="to_do">
         <h1>Tarefas</h1>
-        <form action="#" class="to-do-form" method="post">
+        <form action="actions/create.php" method="POST" class="to-do-form">
             <input type="text" name="description" placeholder="insira sua tarefa aqui" required>
             <button type="submit" class="form-button"><i class="fa-solid fa-plus"></i></button>
         </form>
@@ -45,9 +45,13 @@
 
                     </p>
                     <div class="task-actions">
-                        <a class="action-button edit-button"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a class="action-button edit-button">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </a>
 
-                        <a class="action-button delete-button"><i class="fa-regular fa-trash-can"></i></a>
+                        <a href="actions/delete.php?id=<?= $task['id']?>" class="action-button delete-button">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </a>
                     </div>
                     <form action="#" class="to-do-form edit-task hidden">
                         <input type="text" name="description" placeholder="Edite sua tarefa aqui">
