@@ -3,7 +3,7 @@
 
     $tasks = [];
     
-    $sql = $pdo->query("SELECT * FROM task");
+    $sql = $pdo->query("SELECT * FROM task ORDER BY id ASC");
 
     if($sql->rowCount() > 0){
         $tasks = $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -25,7 +25,9 @@
 <body>
     <div id="to_do">
         <h1>Tarefas</h1>
-        <form action="actions/create.php" method="POST" class="to-do-form">
+        <form action="actions/create.php" 
+        method="POST" 
+        class="to-do-form">
             <input type="text" name="description" placeholder="insira sua tarefa aqui" required>
             <button type="submit" class="form-button"><i class="fa-solid fa-plus"></i></button>
         </form>
@@ -36,8 +38,9 @@
                     <input 
                         type="checkbox" 
                         name="progress" 
-                        class="progress"
+                        class="progress <?= $task['completed'] ? 'done' : ''?>"
                         <?= $task['completed'] ? 'checked' : '' ?>
+                        data-task-id="<?= $task['id']?>"
                     >
 
                     <p class="task-description">
@@ -53,8 +56,13 @@
                             <i class="fa-regular fa-trash-can"></i>
                         </a>
                     </div>
-                    <form action="#" class="to-do-form edit-task hidden">
-                        <input type="text" name="description" placeholder="Edite sua tarefa aqui">
+                    <form action="actions/update.php" method="POST" class="to-do-form edit-task hidden">
+                        <input type="text" class="hidden" name="id" value="<?= $task['id']?>">
+                        <input 
+                            type="text" 
+                            name="description" 
+                            placeholder="Edite sua tarefa aqui" 
+                            value="<?= $task['description']?>">
                         <button type="submit" class="form-button confirm-button"><i class="fa-solid fa-check"></i></button>
                     </form>
                 </div>
